@@ -97,7 +97,7 @@ Luennolla sivuttiin Javan `ExecutorService`-rajapintaa. Kyseisen rajapinnan impl
 Toteuta tehtävientarkistaja `FixedThreadPool`:ia käyttäen. Dynaamista työnjakoa käyttäessä töitä ei kannata jakaa liian isoissa könteissä. Esimerkiksi 1-2 työtä per työtehtävä voi olla riittävä määrä. Huomaa, että `ExecutorService`:n API-dokumentaatiosivulla on esimerkkejä ExecutorSericen valmistumisen odottamista varten (saattaa tulla tarpeeseen).
 
 - ExecutorService-rajapinta: <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/ExecutorService.html>
-- Executors-luokka, joka sisältää tehdasmetodit erityyppisten ExecutorService-olioiden luontiin: <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executors.html)>
+- Executors-luokka, joka sisältää tehdasmetodit erityyppisten ExecutorService-olioiden luontiin: <https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/util/concurrent/Executors.html>
 
 **Vinkki**: Tehtävä 6:en voi suorittaa ilman, että tehtävän 4 tai 5 alloikoijia on toteutettu. Tällöin "allokointi" voidaan toteuttaa siten, että jokaista `Submission`-oliota kohden luodaan yksi `GradingTask`-olio. Tällaisen allokoijan teko pitäisi olla yksinkertaista. Mikäli tehtävä 5 on toteutettu, voit käyttää sitä allokointiin suoraan.
 
