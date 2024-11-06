@@ -24,41 +24,28 @@ public class App3 {
             System.out.println(ug);
         }
 
-        // saadaan allokaattorilta GradingTask-lista
-        List<GradingTask> tasks = TaskAllocator.sloppyAllocator(ungradedSubmissions);
+        // Luodaan uusi GradingTask ja välitetään arvioitavat palautukset
+        GradingTask gradingTask = new GradingTask(ungradedSubmissions);
 
-        // Luodaan säikeet tehtäville ja käynnistetään ne
-        List<Thread> threads = new ArrayList<>();
-        for (GradingTask task : tasks) {
-            Thread thread = new Thread(task);
-            threads.add(thread);
-            thread.start();
+        // Luodaan uusi säie GradingTask-instanssista ja käynnistetään se
+        Thread gradingThread = new Thread(gradingTask);
+        gradingThread.start();
+
+        try {
+            // Odotetaan, että arviointisäie on valmis ennen kuin jatketaan
+            gradingThread.join();
+        } catch (InterruptedException e) {
+            System.err.println("Main thread was interrupted while waiting for grading thread.");
         }
 
-
-        // odotetaan että kaikki säikeet ovat valmiit ennen kuin jatketaan
-        for (Thread thread : threads) {
-            try {
-                thread.join();
-            } catch (InterruptedException e) {
-                System.err.println("Main thread was interrupted while waiting");
-            }
-        }
-
-        // kun kaikki säikeet ovat valmiita, kerätään arvioidut palautukset
+        // Arviointisäie on nyt valmis, joten voidaan turvallisesti hakea arvioidut palautukset
         System.out.println("------------ CUT HERE ------------");
-        List<Submission> allGradedSubmissions = new ArrayList<>();
-        for (GradingTask task : tasks) {
-            allGradedSubmissions.addAll(task.getGradedSubmissions());
-        }
-
-        // tulostetaan arvioidut palautukset
-        for (var gs : allGradedSubmissions) {
+        List<Submission> gradedSubmissions = gradingTask.getGradedSubmissions();
+        for (var gs : gradedSubmissions) {
             System.out.println(gs);
         }
 
         // Lasketaan funktion suoritusaika
-        System.out.printf("Total time for grading: %d ms%n", System.currentTimeMillis()-startTime);
-
-    }
+        System.out.printf("Total time for grading: %d ms%n", System.currentTimeMillis() - startTime);
+  }
 }
