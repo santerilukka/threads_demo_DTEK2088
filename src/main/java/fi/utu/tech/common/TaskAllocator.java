@@ -1,5 +1,6 @@
 package fi.utu.tech.common;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,9 +16,22 @@ public class TaskAllocator {
      * @return The two GradingTask objects in a list, each having half of the submissions
      */
     public static List<GradingTask> sloppyAllocator(List<Submission> submissions) {
-        // TODO: Tehtävä 4
-        // Retruns null for now to suppress warnings
-        return null;
+        int half = submissions.size() / 2;
+
+        // jaetaan palautukset kahtia
+        List<Submission> firstHalf = submissions.subList(0, half);
+        List<Submission> secondHalf = submissions.subList(half, submissions.size());
+
+        // Luodaan kaksi GradingTask oliota ja annetaan puoliskot niille
+        GradingTask task1 = new GradingTask(firstHalf);
+        GradingTask task2 = new GradingTask(secondHalf);
+
+        // palautetaan yksi lista GradingTask olioista
+        List<GradingTask> tasks = new ArrayList<>();
+        tasks.add(task1);
+        tasks.add(task2);
+
+        return tasks;
     }
 
 
