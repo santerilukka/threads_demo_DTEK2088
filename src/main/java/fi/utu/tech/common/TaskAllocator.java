@@ -43,8 +43,19 @@ public class TaskAllocator {
      * @return List of GradingTasks allocated with some amount of submissions (depends on the implementation)
      */
     public static List<GradingTask> allocate(List<Submission> submissions, int taskCount) {
-        // TODO: Tehtävä 5
-        // Retruns null for now to suppress warnings
-        return null;
+        List<GradingTask> tasks = new ArrayList<>();
+
+        // kunkin tehtävän peruskoko ja jäännös
+        int ogSize = submissions.size() / taskCount;
+        int extra = submissions.size() % taskCount;
+
+        // määritellään submissions listan osa, joka annetaan kullekin GradingTask oliolle
+        int start = 0;
+        for (int i = 0; i < taskCount; i++) {
+            int end = start + ogSize + (i < extra ? 1 : 0);
+            tasks.add(new GradingTask(submissions.subList(start, end)));
+        }
+
+        return tasks;
     }
 }
