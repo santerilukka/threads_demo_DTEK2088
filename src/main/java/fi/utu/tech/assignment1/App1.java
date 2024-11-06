@@ -22,19 +22,15 @@ public class App1 {
         }
 
         // Luodaan uusi arviointitehtävä
-        GradingTask gradingTask = new GradingTask();
-        // Annetaan palautukset gradeAll-metodille ja saadaan arvioidut palautukset takaisin
-        List<Submission> gradedSubmissions =  gradingTask.gradeAll(ungradedSubmissions);
-        /*
-         * TODO: Muokkaa common-pakkauksen GradingTask-luokkaa siten,
-         * että alla oleva run()-metodi (ilman argumentteja!) tarkistaa palautukset (ungradedSubmissions).
-         * Yllä olevaa gt.gradeAll()-metodia ei tule enää käyttää suoraan
-         * tästä main-metodista. Tarkemmat ohjeet tehtävänannossa.
-         * Joudut keksimään, miten GradingTaskille voi antaa tehtävät ja miten ne siltä saa noukittua
-         */
-        // gradingTask.run();
-        
+        // arvioimattomilla palautuksilla
+        GradingTask gradingTask = new GradingTask(ungradedSubmissions);
+
+        // kutsutaan run-metodia
+        gradingTask.run();
+
+        // haetaan ja
         // Tulostetaan arvioidut palautukset
+        List<Submission> gradedSubmissions = gradingTask.getGradedSubmissions();
         System.out.println("------------ CUT HERE ------------");
         for (var gs : gradedSubmissions) {
             System.out.println(gs);

@@ -8,9 +8,18 @@ import java.util.Random;
  * You need to modify this file
  */
 
-public class GradingTask  {
+public class GradingTask implements Runnable {
 
     private Random rnd = new Random();
+
+    private List<Submission> ungradedSubmissions;
+    private List<Submission> gradedSubmissions;
+
+    // konstruktorille lisätään palautusten lista
+    public GradingTask(List<Submission> ungradedSubmissions) {
+        this.ungradedSubmissions = ungradedSubmissions;
+        this.gradedSubmissions = new ArrayList<>();
+    }
 
     /**
      * Grades all given submissions. Does not mutate the given objects
@@ -37,5 +46,19 @@ public class GradingTask  {
             System.err.println("Who dared to interrupt my sleep?!");
         }
         return s.grade(rnd.nextInt(6));
+    }
+
+    /**
+     * run-metodi arvioi palautukset gradeAll()-metodilla
+     */
+    public void run() {
+        gradedSubmissions = gradeAll(ungradedSubmissions);
+    }
+
+    /**
+     * Palauttaa arvioidut palautukset
+     */
+    public List<Submission> getGradedSubmissions() {
+        return gradedSubmissions;
     }
 }
