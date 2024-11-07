@@ -3,9 +3,6 @@ package fi.utu.tech.common;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * You need to modify this file
- */
 
 
 public class TaskAllocator {

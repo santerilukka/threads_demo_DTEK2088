@@ -4,9 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-/**
- * You need to modify this file
- */
 
 public class GradingTask implements Runnable {
 
